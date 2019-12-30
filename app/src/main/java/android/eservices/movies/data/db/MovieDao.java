@@ -23,7 +23,7 @@ public interface MovieDao {
     public Completable addMovieToFavorites(MovieEntity movieEntity);
 
     @Query("DELETE FROM movieentity WHERE id = :id")
-    public Completable deleteMovieFromFavorites(String id);
+    public Completable deleteMovieFromFavorites(Long id);
 
     @Query("SELECT id from movieentity")
     Single<List<Long>> getFavoriteIdList();

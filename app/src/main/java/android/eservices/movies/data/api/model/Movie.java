@@ -21,6 +21,7 @@ public class Movie {
     private String overview;
     private String release_date;
     private String backdrop_path;
+    private boolean isFavorite;
 
     public Movie(long id, String vote_average, String title, String poster_path,
                  String overview, String release_date, String backdrop_path) {
@@ -121,5 +122,11 @@ public class Movie {
         return null;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
 
+    public void setFavorite() {
+        isFavorite = true;
+    }
 }
