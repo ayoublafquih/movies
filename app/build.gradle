@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -45,6 +50,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.1.0"
     implementation "androidx.room:room-rxjava2:2.1.0"
     implementation 'com.jakewharton:butterknife:10.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
 }
