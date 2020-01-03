@@ -23,6 +23,9 @@ public class Movie {
     private String backdrop_path;
     private boolean isFavorite;
 
+    public Movie() {
+    }
+
     public Movie(long id, String vote_average, String title, String poster_path,
                  String overview, String release_date, String backdrop_path) {
         this.id = id;

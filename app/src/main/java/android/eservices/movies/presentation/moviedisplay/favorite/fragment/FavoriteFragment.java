@@ -1,0 +1,101 @@
+package android.eservices.movies.presentation.moviedisplay.favorite.fragment;
+
+
+import android.eservices.movies.R;
+import android.eservices.movies.data.api.model.Movie;
+import android.eservices.movies.data.di.FakeDependencyInjection;
+import android.eservices.movies.presentation.moviedisplay.favorite.MovieFavoriteContract;
+import android.eservices.movies.presentation.moviedisplay.favorite.MovieFavoritePresenter;
+import android.eservices.movies.presentation.moviedisplay.favorite.adapter.MovieFavoriteActionInterface;
+import android.eservices.movies.presentation.moviedisplay.favorite.adapter.MovieFavoriteAdapter;
+import android.eservices.movies.presentation.moviedisplay.favorite.mapper.MovieEntityToMovieMapper;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+
+public class FavoriteFragment extends Fragment implements MovieFavoriteContract.View, MovieFavoriteActionInterface {
+
+    public static final String TAB_NAME = "Favorites";
+    private View rootView;
+    MovieFavoriteContract.Presenter movieFavoritePresenter;
+    private RecyclerView recyclerView;
+    private MovieFavoriteAdapter movieFavoriteAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+
+    private FavoriteFragment() {
+        layoutManager= new LinearLayoutManager(getContext());
+    }
+
+    public void changeLayout(){
+        if (layoutManager instanceof GridLayoutManager) {
+            layoutManager = new LinearLayoutManager(getContext());
+        } else {
+            layoutManager = new GridLayoutManager(getContext(), 2);
+        }
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onRemoveFavorite(Long movieId, Boolean isChecked) {
+        if(!isChecked){
+            movieFavoritePresenter.removeMovieFromFavorites(movieId);
+        }
+    }
+
+    public static FavoriteFragment newInstance() {
+        return new FavoriteFragment();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setupRecyclerView();
+
+        movieFavoritePresenter = new MovieFavoritePresenter(FakeDependencyInjection.getMovieDisplayRepository(), new MovieEntityToMovieMapper());
+        movieFavoritePresenter.attachView(this);
+        movieFavoritePresenter.getFavorites();
+    }
+
+    private void setupRecyclerView() {
+        recyclerView = rootView.findViewById(R.id.recycler_view);
+        movieFavoriteAdapter = new MovieFavoriteAdapter(this);
+        recyclerView.setAdapter(movieFavoriteAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void displayFavorites(List<Movie> movieViewModelList) {
+        movieFavoriteAdapter.bindViewModels(movieViewModelList);
+    }
+
+    @Override
+    public void onMovieRemoved() {
+        //Do nothing yet
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        movieFavoritePresenter.detachView();
+    }
+}

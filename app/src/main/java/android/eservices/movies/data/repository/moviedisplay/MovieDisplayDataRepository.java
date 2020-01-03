@@ -22,15 +22,15 @@ public class MovieDisplayDataRepository implements MovieDisplayRepository {
 
     private MovieDisplayLocalDataSource movieDisplayLocalDataSource;
     private MovieDisplayRemoteDataSource movieDisplayRemoteDataSource;
-    private MovieToMovieEntityMapper movieToBookEntityMapper;
+    private MovieToMovieEntityMapper movieToMovieEntityMapper;
 
 
     public MovieDisplayDataRepository(MovieDisplayLocalDataSource movieDisplayLocalDataSource,
                                       MovieDisplayRemoteDataSource movieDisplayRemoteDataSource,
-                                      MovieToMovieEntityMapper movieToBookEntityMapper) {
+                                      MovieToMovieEntityMapper movieToMovieEntityMapper) {
         this.movieDisplayLocalDataSource = movieDisplayLocalDataSource;
         this.movieDisplayRemoteDataSource = movieDisplayRemoteDataSource;
-        this.movieToBookEntityMapper = movieToBookEntityMapper;
+        this.movieToMovieEntityMapper = movieToMovieEntityMapper;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MovieDisplayDataRepository implements MovieDisplayRepository {
                 .map(new Function<Movie, MovieEntity>() {
                     @Override
                     public MovieEntity apply(Movie movie) {
-                        return movieToBookEntityMapper.map(movie);
+                        return movieToMovieEntityMapper.map(movie);
                     }
                 })
                 .flatMapCompletable(new Function<MovieEntity, CompletableSource>() {

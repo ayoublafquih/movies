@@ -15,25 +15,38 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class ListFragment extends Fragment implements MovieListContract.View, MovieActionInterface {
-    public static final String TAB_NAME = "List";
+    public static String TAB_NAME = "MOST POPULAR";
     private View rootView;
     MovieListContract.Presenter movieListPresenter;
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
-    public static final String MOST_POPULAR = "popular";
+    private RecyclerView.LayoutManager layoutManager;
+    public static String SORT_BY = "popular";
 
-
-    public ListFragment() {
+    public ListFragment(String sortBy) {
+        this.SORT_BY = sortBy;
+        this.TAB_NAME = sortBy == "popular" ? "MOST POPULAR" : "TOP RATED";
+        layoutManager= new LinearLayoutManager(getContext());
     }
 
-    public static ListFragment newInstance() {
-        return new ListFragment();
+    public static ListFragment newInstance(String sortBy) {
+        return new ListFragment(sortBy);
+    }
+
+    public void changeLayout(){
+        if (layoutManager instanceof GridLayoutManager) {
+            layoutManager = new LinearLayoutManager(getContext());
+        } else {
+            layoutManager = new GridLayoutManager(getContext(), 2);
+        }
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Nullable
@@ -49,7 +62,7 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
         super.onActivityCreated(savedInstanceState);
         setupRecyclerView();
         movieListPresenter = new MovieListPresenter(FakeDependencyInjection.getMovieDisplayRepository());
-        movieListPresenter.searchMovies(MOST_POPULAR);
+        movieListPresenter.searchMovies(SORT_BY);
         movieListPresenter.attachView(this);
     }
 
@@ -57,7 +70,7 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
         recyclerView = rootView.findViewById(R.id.recycler_view);
         movieAdapter = new MovieAdapter(this);
         recyclerView.setAdapter(movieAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -69,11 +82,13 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     public void onFavoriteToggle(Long movieId, boolean isFavorite) {
         if (isFavorite) {
             movieListPresenter.addMovieToFavorite(movieId);
+            System.err.println("add movie");
         } else {
             movieListPresenter.removeMovieFromFavorites(movieId);
+            System.err.println("remove movie");
+
         }
     }
-
 
     @Override
     public void onMovieAddedToFavorites() {

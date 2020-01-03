@@ -1,4 +1,4 @@
-package android.eservices.movies.presentation.moviedisplay.list.adapter;
+package android.eservices.movies.presentation.moviedisplay.favorite.adapter;
 
 import android.eservices.movies.R;
 import android.eservices.movies.data.api.model.Movie;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieViewHolder> {
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
@@ -27,16 +27,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public Switch favoriteSwitch;
         private View v;
         private Movie movieItemViewModel;
-        private MovieActionInterface movieActionInterface;
+        private MovieFavoriteActionInterface movieFavoriteActionInterface;
 
 
-        public MovieViewHolder(View v, MovieActionInterface movieActionInterface) {
+        public MovieViewHolder(View v, MovieFavoriteActionInterface movieFavoriteActionInterface) {
             super(v);
             titleTextView = v.findViewById(R.id.title_text_view);
             favoriteSwitch = v.findViewById(R.id.favorite_switch);
             thumbnailImageView = v.findViewById(R.id.thumbnail_image_view);
             this.v = v;
-            this.movieActionInterface = movieActionInterface;
+            this.movieFavoriteActionInterface = movieFavoriteActionInterface;
             setupListeners();
         }
 
@@ -44,7 +44,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             favoriteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    movieActionInterface.onFavoriteToggle(movieItemViewModel.getId(), b);
+                    movieFavoriteActionInterface.onRemoveFavorite(movieItemViewModel.getId(), true);
+                    System.err.println("Apppui sur switch");
                 }
             });
         }
@@ -52,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void bind(Movie movieItemViewModel) {
             this.movieItemViewModel = movieItemViewModel;
             titleTextView.setText(movieItemViewModel.getTitle());
-            favoriteSwitch.setChecked(movieItemViewModel.isFavorite());
+            favoriteSwitch.setChecked(true);
             String urlPoster = movieItemViewModel.getPosterPath(v.getContext());
             Picasso.with(v.getContext())
                     .load(urlPoster)
@@ -64,13 +65,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     private List<Movie> movieItemViewModelList;
-    private MovieActionInterface movieActionInterface;
+    private MovieFavoriteActionInterface movieFavoriteActionInterface;
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MovieAdapter(MovieActionInterface movieActionInterface) {
+    public MovieFavoriteAdapter(MovieFavoriteActionInterface movieFavoriteActionInterface) {
         movieItemViewModelList = new ArrayList<>();
-        this.movieActionInterface = movieActionInterface;
+        this.movieFavoriteActionInterface = movieFavoriteActionInterface;
     }
 
     public void bindViewModels(List<Movie> movieItemViewModelList) {
@@ -84,7 +85,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                                               int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_list_content, parent, false);
-        MovieViewHolder movieViewHolder = new MovieViewHolder(v, movieActionInterface);
+        MovieViewHolder movieViewHolder = new MovieViewHolder(v, movieFavoriteActionInterface);
         return movieViewHolder;
     }
 

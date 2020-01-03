@@ -4,6 +4,9 @@ import android.eservices.movies.data.api.model.Movie;
 import android.eservices.movies.data.entity.MovieEntity;
 import android.text.TextUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieToMovieEntityMapper {
 
     public MovieEntity map(Movie movie) {
@@ -19,4 +22,5 @@ public class MovieToMovieEntityMapper {
 
         return movieEntity;
     }
+
 }
