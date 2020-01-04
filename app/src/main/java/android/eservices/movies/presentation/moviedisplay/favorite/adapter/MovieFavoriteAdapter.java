@@ -44,7 +44,7 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
             favoriteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    movieFavoriteActionInterface.onRemoveFavorite(movieItemViewModel.getId(), true);
+                    movieFavoriteActionInterface.onRemoveFavorite(movieItemViewModel.getId(), b);
                     System.err.println("Apppui sur switch");
                 }
             });

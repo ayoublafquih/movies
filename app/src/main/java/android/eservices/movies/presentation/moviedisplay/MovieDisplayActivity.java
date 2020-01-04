@@ -18,8 +18,8 @@ public class MovieDisplayActivity extends AppCompatActivity {
     public static final String MOST_POPULAR = "popular";
     public static final String TOP_RATED = "top_rated";
     private String sortBy = MOST_POPULAR;
-    ListFragment listFragment;
-    FavoriteFragment fragmentFavorite;
+    ListFragment listFragment = ListFragment.newInstance(sortBy);
+    FavoriteFragment fragmentFavorite = FavoriteFragment.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,6 @@ public class MovieDisplayActivity extends AppCompatActivity {
     private void setupViewPagerAndTabs(String sortBy) {
         viewPager = findViewById(R.id.tab_viewpager);
 
-        listFragment = ListFragment.newInstance(sortBy);
-        fragmentFavorite = FavoriteFragment.newInstance();
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -73,28 +71,23 @@ public class MovieDisplayActivity extends AppCompatActivity {
                 sortBy = MOST_POPULAR;
                 item.setCheckable(true);
                 item.setChecked(true);
-                setupViewPagerAndTabs(MOST_POPULAR);
+                listFragment.ChangeFilter(sortBy);
                 break;
             case R.id.sort_by_top_rated:
                 sortBy = TOP_RATED;
                 item.setCheckable(true);
                 item.setChecked(true);
-                setupViewPagerAndTabs(TOP_RATED);
+                listFragment.ChangeFilter(sortBy);
                 break;
             case R.id.sort_by_favorite:
                 listFragment.changeLayout();
                 fragmentFavorite.changeLayout();
-                item.setChecked(true);
-                item.setCheckable(true);
                 break;
-            default:
-                ;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 }
-
 
 

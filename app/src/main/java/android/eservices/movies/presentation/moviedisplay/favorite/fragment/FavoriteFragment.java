@@ -16,10 +16,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -28,17 +31,15 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
 
     public static final String TAB_NAME = "Favorites";
     private View rootView;
+    private CoordinatorLayout coordinatorLayout;
     MovieFavoriteContract.Presenter movieFavoritePresenter;
     private RecyclerView recyclerView;
     private MovieFavoriteAdapter movieFavoriteAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
-
+    private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
     private FavoriteFragment() {
-        layoutManager= new LinearLayoutManager(getContext());
     }
 
-    public void changeLayout(){
+    public void changeLayout() {
         if (layoutManager instanceof GridLayoutManager) {
             layoutManager = new LinearLayoutManager(getContext());
         } else {
@@ -51,9 +52,14 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
     public void onRemoveFavorite(Long movieId, Boolean isChecked) {
         if(!isChecked){
             movieFavoritePresenter.removeMovieFromFavorites(movieId);
+            displaySnackBar("remove movie from Favorite");
         }
     }
 
+    public void displaySnackBar(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
+                .show();
+    }
     public static FavoriteFragment newInstance() {
         return new FavoriteFragment();
     }
@@ -68,7 +74,9 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        coordinatorLayout = rootView.findViewById(R.id.coordinator_layout);
         super.onActivityCreated(savedInstanceState);
+
         setupRecyclerView();
 
         movieFavoritePresenter = new MovieFavoritePresenter(FakeDependencyInjection.getMovieDisplayRepository(), new MovieEntityToMovieMapper());

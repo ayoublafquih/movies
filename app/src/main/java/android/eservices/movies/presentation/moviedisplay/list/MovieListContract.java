@@ -1,6 +1,7 @@
 package android.eservices.movies.presentation.moviedisplay.list;
 
 import android.eservices.movies.data.api.model.Movie;
+
 import java.util.List;
 
 public class MovieListContract {
@@ -11,6 +12,7 @@ public class MovieListContract {
         void onMovieAddedToFavorites();
 
         void onMovieRemovedFromFavorites();
+
     }
 
     public interface Presenter {

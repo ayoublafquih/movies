@@ -14,11 +14,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment implements MovieListContract.View, MovieActionInterface {
@@ -27,26 +31,37 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     MovieListContract.Presenter movieListPresenter;
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+    List<Movie> movies = new ArrayList<>();
     public static String SORT_BY = "popular";
+    private CoordinatorLayout coordinatorLayout;
+
 
     public ListFragment(String sortBy) {
         this.SORT_BY = sortBy;
         this.TAB_NAME = sortBy == "popular" ? "MOST POPULAR" : "TOP RATED";
-        layoutManager= new LinearLayoutManager(getContext());
     }
 
     public static ListFragment newInstance(String sortBy) {
         return new ListFragment(sortBy);
     }
 
-    public void changeLayout(){
+    public void displaySnackBar(String message) {
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
+                .show();
+    }
+
+    public void changeLayout() {
         if (layoutManager instanceof GridLayoutManager) {
             layoutManager = new LinearLayoutManager(getContext());
         } else {
             layoutManager = new GridLayoutManager(getContext(), 2);
         }
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    public void ChangeFilter(String sortBy) {
+        setupRecyclerView(sortBy);
     }
 
     @Nullable
@@ -60,21 +75,24 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setupRecyclerView();
-        movieListPresenter = new MovieListPresenter(FakeDependencyInjection.getMovieDisplayRepository());
-        movieListPresenter.searchMovies(SORT_BY);
-        movieListPresenter.attachView(this);
-    }
-
-    private void setupRecyclerView() {
         recyclerView = rootView.findViewById(R.id.recycler_view);
         movieAdapter = new MovieAdapter(this);
         recyclerView.setAdapter(movieAdapter);
+        movieListPresenter = new MovieListPresenter(FakeDependencyInjection.getMovieDisplayRepository());
+        movieListPresenter.attachView(this);
+        coordinatorLayout = rootView.findViewById(R.id.coordinator_layout);
+        setupRecyclerView(SORT_BY);
+
+    }
+
+    private void setupRecyclerView(String sortBy) {
         recyclerView.setLayoutManager(layoutManager);
+        movieListPresenter.searchMovies(sortBy);
     }
 
     @Override
     public void displayMovies(List<Movie> movieItemViewModelList) {
+        movies = movieItemViewModelList;
         movieAdapter.bindViewModels(movieItemViewModelList);
     }
 
@@ -82,17 +100,17 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     public void onFavoriteToggle(Long movieId, boolean isFavorite) {
         if (isFavorite) {
             movieListPresenter.addMovieToFavorite(movieId);
-            System.err.println("add movie");
+            displaySnackBar("add movie to Favorite");
         } else {
             movieListPresenter.removeMovieFromFavorites(movieId);
-            System.err.println("remove movie");
+            displaySnackBar("remove movie from Favorite");
 
         }
     }
 
+
     @Override
     public void onMovieAddedToFavorites() {
-        //Do nothing
     }
 
     @Override
