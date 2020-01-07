@@ -36,6 +36,7 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
     private RecyclerView recyclerView;
     private MovieFavoriteAdapter movieFavoriteAdapter;
     private RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+
     private FavoriteFragment() {
     }
 

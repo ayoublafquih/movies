@@ -1,6 +1,9 @@
 package android.eservices.movies.presentation.moviedisplay.list.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.eservices.movies.R;
+import android.eservices.movies.book_activity;
 import android.eservices.movies.data.api.model.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         private View v;
         private Movie movieItemViewModel;
         private MovieActionInterface movieActionInterface;
+        CardView cardView;
 
 
         public MovieViewHolder(View v, MovieActionInterface movieActionInterface) {
@@ -35,6 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             titleTextView = v.findViewById(R.id.title_text_view);
             favoriteSwitch = v.findViewById(R.id.favorite_switch);
             thumbnailImageView = v.findViewById(R.id.thumbnail_image_view);
+            cardView = v.findViewById(R.id.card_view_id);
             this.v = v;
             this.movieActionInterface = movieActionInterface;
             setupListeners();
@@ -57,14 +63,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             Picasso.with(v.getContext())
                     .load(urlPoster)
                     .into(thumbnailImageView);
-
-
         }
 
     }
 
     private List<Movie> movieItemViewModelList;
     private MovieActionInterface movieActionInterface;
+    private Context context;
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -82,6 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent,
                                               int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_list_content, parent, false);
         MovieViewHolder movieViewHolder = new MovieViewHolder(v, movieActionInterface);
@@ -92,6 +98,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         holder.bind(movieItemViewModelList.get(position));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, book_activity.class);
+                intent.putExtra("title",movieItemViewModelList.get(position).getTitle());
+                intent.putExtra("description",movieItemViewModelList.get(position).getOverview());
+                intent.putExtra("thumbnail",movieItemViewModelList.get(position).getPosterPath(context));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
