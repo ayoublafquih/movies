@@ -26,24 +26,26 @@
 
         <TextView
             android:id="@+id/title_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold|italic"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/favorite_switch"
-            app:layout_constraintTop_toBottomOf="@id/thumbnail_image_view" />
+            app:layout_constraintTop_toBottomOf="@id/thumbnail_image_view"/>
 
         <Switch
+            android:outlineAmbientShadowColor="@color/colorAccent"
             android:id="@+id/favorite_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:checked="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/thumbnail_image_view" />
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail_image_view"
+            app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -31,6 +31,8 @@ public class MovieListPresenter implements MovieListContract.Presenter {
                     public void onSuccess(Movies movies) {
                         // work with the resulting todos
                         view.displayMovies(movies.getMovies());
+                        System.out.println("daz menhna");
+
                     }
 
                     @Override

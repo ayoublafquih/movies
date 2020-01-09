@@ -3,7 +3,7 @@ package android.eservices.movies.presentation.moviedisplay.list.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.eservices.movies.R;
-import android.eservices.movies.book_activity;
+import android.eservices.movies.presentation.moviedisplay.book_activity;
 import android.eservices.movies.data.api.model.Movie;
 import android.view.LayoutInflater;
 import android.view.View;

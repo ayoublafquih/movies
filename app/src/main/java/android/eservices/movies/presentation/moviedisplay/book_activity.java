@@ -1,8 +1,9 @@
-package android.eservices.movies;
+package android.eservices.movies.presentation.moviedisplay;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.eservices.movies.R;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;

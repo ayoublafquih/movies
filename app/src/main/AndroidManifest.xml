@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".book_activity"></activity>
+        <activity android:name=".presentation.moviedisplay.book_activity"></activity>
         <activity
-            android:name=".presentation.moviedisplay.MovieDisplayActivity"
-            android:screenOrientation="portrait">
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:name=".presentation.moviedisplay.MovieDisplayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

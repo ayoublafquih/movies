@@ -25,11 +25,10 @@ public class MovieDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupViewPagerAndTabs(sortBy);
+        setupViewPagerAndTabs();
     }
 
-
-    private void setupViewPagerAndTabs(String sortBy) {
+    private void setupViewPagerAndTabs() {
         viewPager = findViewById(R.id.tab_viewpager);
 
 
@@ -37,9 +36,9 @@ public class MovieDisplayActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) {
-                    return listFragment;
+                    return ListFragment.newInstance(sortBy);
                 }
-                return fragmentFavorite;
+                return FavoriteFragment.newInstance();
             }
 
             @Override

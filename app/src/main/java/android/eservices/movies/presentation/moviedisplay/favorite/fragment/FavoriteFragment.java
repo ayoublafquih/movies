@@ -40,6 +40,10 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
     private FavoriteFragment() {
     }
 
+    public static FavoriteFragment newInstance() {
+        return new FavoriteFragment();
+    }
+
     public void changeLayout() {
         if (layoutManager instanceof GridLayoutManager) {
             layoutManager = new LinearLayoutManager(getContext());
@@ -56,13 +60,9 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
             displaySnackBar("remove movie from Favorite");
         }
     }
-
     public void displaySnackBar(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
                 .show();
-    }
-    public static FavoriteFragment newInstance() {
-        return new FavoriteFragment();
     }
 
     @Nullable

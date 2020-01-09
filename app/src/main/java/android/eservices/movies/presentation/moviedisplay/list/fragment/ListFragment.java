@@ -37,13 +37,13 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     private CoordinatorLayout coordinatorLayout;
 
 
-    public ListFragment(String sortBy) {
-        this.SORT_BY = sortBy;
-        this.TAB_NAME = sortBy == "popular" ? "MOST POPULAR" : "TOP RATED";
+    public ListFragment() {
     }
 
     public static ListFragment newInstance(String sortBy) {
-        return new ListFragment(sortBy);
+        SORT_BY = sortBy;
+        TAB_NAME = sortBy == "popular" ? "MOST POPULAR" : "TOP RATED";
+        return new ListFragment();
     }
 
     public void displaySnackBar(String message) {
@@ -61,7 +61,8 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     }
 
     public void ChangeFilter(String sortBy) {
-        setupRecyclerView(sortBy);
+        SORT_BY = sortBy;
+        setupRecyclerView();
     }
 
     @Nullable
@@ -81,13 +82,13 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
         movieListPresenter = new MovieListPresenter(FakeDependencyInjection.getMovieDisplayRepository());
         movieListPresenter.attachView(this);
         coordinatorLayout = rootView.findViewById(R.id.coordinator_layout);
-        setupRecyclerView(SORT_BY);
+        setupRecyclerView();
 
     }
 
-    private void setupRecyclerView(String sortBy) {
+    public void setupRecyclerView() {
         recyclerView.setLayoutManager(layoutManager);
-        movieListPresenter.searchMovies(sortBy);
+        movieListPresenter.searchMovies(SORT_BY);
     }
 
     @Override
@@ -100,11 +101,10 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     public void onFavoriteToggle(Long movieId, boolean isFavorite) {
         if (isFavorite) {
             movieListPresenter.addMovieToFavorite(movieId);
-            displaySnackBar("add movie to Favorite");
+            displaySnackBar("Le film est ajouté avec succès");
         } else {
             movieListPresenter.removeMovieFromFavorites(movieId);
-            displaySnackBar("remove movie from Favorite");
-
+            displaySnackBar("le film est supprimé avec succès");
         }
     }
 
