@@ -31,7 +31,6 @@ public class MovieListPresenter implements MovieListContract.Presenter {
                     public void onSuccess(Movies movies) {
                         // work with the resulting todos
                         view.displayMovies(movies.getMovies());
-                        System.out.println("daz menhna");
 
                     }
 
@@ -62,7 +61,6 @@ public class MovieListPresenter implements MovieListContract.Presenter {
                 }));
     }
 
-
     @Override
     public void removeMovieFromFavorites(Long movieId) {
         compositeDisposable.add(movieDisplayRepository.removeMovieFromFavorites(movieId)
@@ -84,11 +82,6 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     @Override
     public void attachView(MovieListContract.View view) {
         this.view = view;
-    }
-
-    @Override
-    public void cancelSubscription() {
-        compositeDisposable.clear();
     }
 
     @Override

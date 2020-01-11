@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment implements MovieListContract.View, MovieActionInterface {
-    public static String TAB_NAME = "MOST POPULAR";
+    public static String TAB_NAME = "MOVIES";
     private View rootView;
     MovieListContract.Presenter movieListPresenter;
     private RecyclerView recyclerView;
@@ -42,7 +42,6 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
 
     public static ListFragment newInstance(String sortBy) {
         SORT_BY = sortBy;
-        TAB_NAME = sortBy == "popular" ? "MOST POPULAR" : "TOP RATED";
         return new ListFragment();
     }
 
@@ -113,7 +112,6 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
 
     @Override
     public void onMovieRemovedFromFavorites() {
-        //Do nothing
     }
 
     @Override

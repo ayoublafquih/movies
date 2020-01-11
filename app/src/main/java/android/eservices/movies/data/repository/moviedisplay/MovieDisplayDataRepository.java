@@ -2,8 +2,6 @@ package android.eservices.movies.data.repository.moviedisplay;
 
 import android.eservices.movies.data.api.model.Movie;
 import android.eservices.movies.data.api.model.Movies;
-import android.eservices.movies.data.api.model.Reviews;
-import android.eservices.movies.data.api.model.Trailers;
 import android.eservices.movies.data.entity.MovieEntity;
 import android.eservices.movies.data.repository.moviedisplay.local.MovieDisplayLocalDataSource;
 import android.eservices.movies.data.repository.moviedisplay.mapper.MovieToMovieEntityMapper;
@@ -75,17 +73,6 @@ public class MovieDisplayDataRepository implements MovieDisplayRepository {
                         return movies;
                     }
                 });
-    }
-
-    @Override
-    public Single<Reviews> getReviewsMovie(long id) {
-        return movieDisplayRemoteDataSource.getReviewsMovie(id);
-    }
-
-    @Override
-    public Single<Trailers> getTrailersMovie(long id) {
-        return movieDisplayRemoteDataSource.getTrailersMovie(id);
-
     }
 
 }

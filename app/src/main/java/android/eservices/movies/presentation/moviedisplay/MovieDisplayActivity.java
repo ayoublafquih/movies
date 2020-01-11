@@ -44,7 +44,7 @@ public class MovieDisplayActivity extends AppCompatActivity {
             @Override
             public CharSequence getPageTitle(int position) {
                 if (position == 0) {
-                    return ListFragment.SORT_BY;
+                    return ListFragment.TAB_NAME;
                 }
                 return FavoriteFragment.TAB_NAME;
             }

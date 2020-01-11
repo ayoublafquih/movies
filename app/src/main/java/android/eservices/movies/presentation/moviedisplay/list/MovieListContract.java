@@ -20,8 +20,6 @@ public class MovieListContract {
 
         void attachView(View view);
 
-        void cancelSubscription();
-
         void addMovieToFavorite(Long movieId);
 
         void removeMovieFromFavorites(Long movieId);
