@@ -36,9 +36,9 @@ public class MovieDisplayActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) {
-                    return ListFragment.newInstance(sortBy);
+                    return listFragment;
                 }
-                return FavoriteFragment.newInstance();
+                return fragmentFavorite;
             }
 
             @Override

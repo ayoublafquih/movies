@@ -57,7 +57,7 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
     public void onRemoveFavorite(Long movieId, Boolean isChecked) {
         if(!isChecked){
             movieFavoritePresenter.removeMovieFromFavorites(movieId);
-            displaySnackBar("remove movie from Favorite");
+            displaySnackBar("remove movie from favorite");
         }
     }
     public void displaySnackBar(String message) {

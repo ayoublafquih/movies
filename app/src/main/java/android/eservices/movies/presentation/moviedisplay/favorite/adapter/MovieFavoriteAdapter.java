@@ -103,7 +103,9 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
                 Intent intent = new Intent(v.getContext(), book_activity.class);
                 intent.putExtra("title",movieItemViewModelList.get(position).getTitle());
                 intent.putExtra("description",movieItemViewModelList.get(position).getOverview());
-                intent.putExtra("thumbnail",movieItemViewModelList.get(position).getPosterPath(v.getContext()));
+                intent.putExtra("thumbnail",movieItemViewModelList.get(position).getBackdropPath(v.getContext()));
+                intent.putExtra("date",movieItemViewModelList.get(position).getReleaseDate(v.getContext()));
+
                 v.getContext().startActivity(intent);
             }
         });

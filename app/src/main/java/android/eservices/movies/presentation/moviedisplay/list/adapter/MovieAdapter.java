@@ -28,6 +28,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         public ImageView thumbnailImageView;
         public TextView titleTextView;
+        public TextView ratingTextView;
         public Switch favoriteSwitch;
         private View v;
         private Movie movieItemViewModel;
@@ -38,6 +39,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public MovieViewHolder(View v, MovieActionInterface movieActionInterface) {
             super(v);
             titleTextView = v.findViewById(R.id.title_text_view);
+            ratingTextView = v.findViewById(R.id.rating);
             favoriteSwitch = v.findViewById(R.id.favorite_switch);
             thumbnailImageView = v.findViewById(R.id.thumbnail_image_view);
             cardView = v.findViewById(R.id.card_view_id);
@@ -58,6 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         void bind(Movie movieItemViewModel) {
             this.movieItemViewModel = movieItemViewModel;
             titleTextView.setText(movieItemViewModel.getTitle());
+            ratingTextView.setText(movieItemViewModel.getVote_average());
             favoriteSwitch.setChecked(movieItemViewModel.isFavorite());
             String urlPoster = movieItemViewModel.getPosterPath(v.getContext());
             Picasso.with(v.getContext())
@@ -104,7 +107,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 Intent intent = new Intent(context, book_activity.class);
                 intent.putExtra("title",movieItemViewModelList.get(position).getTitle());
                 intent.putExtra("description",movieItemViewModelList.get(position).getOverview());
-                intent.putExtra("thumbnail",movieItemViewModelList.get(position).getPosterPath(context));
+                intent.putExtra("thumbnail",movieItemViewModelList.get(position).getBackdropPath(context));
+                intent.putExtra("date",movieItemViewModelList.get(position).getReleaseDate(context));
                 context.startActivity(intent);
             }
         });

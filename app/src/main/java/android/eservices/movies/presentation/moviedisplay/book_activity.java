@@ -14,7 +14,9 @@ public class book_activity extends AppCompatActivity {
 
     private ImageView thumbnailImageView;
     private TextView titleTextView;
+    private TextView dateTextView;
     private TextView descriptionTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +26,17 @@ public class book_activity extends AppCompatActivity {
         Intent intent = getIntent();
 
         titleTextView = findViewById(R.id.title);
+        dateTextView = findViewById(R.id.date);
         descriptionTextView = findViewById(R.id.description);
         thumbnailImageView = findViewById(R.id.image);
 
         String title = intent.getExtras().getString("title");
         String description = intent.getExtras().getString("description");
         String urlPoster = intent.getExtras().getString("thumbnail");
+        String date = intent.getExtras().getString("date");
 
         titleTextView.setText(title);
+        dateTextView.setText(date);
         descriptionTextView.setText(description);
         Picasso.with(descriptionTextView.getContext())
                 .load(urlPoster)

@@ -101,10 +101,8 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     public void onFavoriteToggle(Long movieId, boolean isFavorite) {
         if (isFavorite) {
             movieListPresenter.addMovieToFavorite(movieId);
-            displaySnackBar("Le film est ajouté avec succès");
         } else {
             movieListPresenter.removeMovieFromFavorites(movieId);
-            displaySnackBar("le film est supprimé avec succès");
         }
     }
 
