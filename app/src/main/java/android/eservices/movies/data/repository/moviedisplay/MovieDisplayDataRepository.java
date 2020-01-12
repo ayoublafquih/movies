@@ -16,6 +16,10 @@ import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 
+
+/**
+ * It is an implementation of our Data repository
+ */
 public class MovieDisplayDataRepository implements MovieDisplayRepository {
 
     private MovieDisplayLocalDataSource movieDisplayLocalDataSource;
@@ -31,6 +35,11 @@ public class MovieDisplayDataRepository implements MovieDisplayRepository {
         this.movieToMovieEntityMapper = movieToMovieEntityMapper;
     }
 
+    /**
+     * It is a method which allows to add movie to our list of favorites movies
+     * @param movieId
+     * @return RrJs Type to know that movie is added or not
+     */
     @Override
     public Completable addMovieToFavorites(Long movieId) {
 
@@ -49,16 +58,29 @@ public class MovieDisplayDataRepository implements MovieDisplayRepository {
                 });
     }
 
+    /**
+     * It is a method which allows to remove movie from our list of favorites movies
+     * @param movieId
+     * @return RrJs Type to know that movie is added or not
+     */
+
     @Override
     public Completable removeMovieFromFavorites(Long movieId) {
         return movieDisplayLocalDataSource.deleteMovieFromFavorites(movieId);
     }
 
+    /**
+     * It is a method which allows to add movie to our list of favorites movies
+     * @return RrJs Type that contain all favorites movies
+     */
     @Override
     public Flowable<List<MovieEntity>> getFavoriteMovies() {
         return movieDisplayLocalDataSource.loadFavorites();
     }
 
+    /**
+     * @return RrJs Type that return list of movie from remote database
+     */
     @Override
     public Single<Movies> getMovies(String sortBy) {
         return movieDisplayRemoteDataSource.getMovies(sortBy)

@@ -36,7 +36,6 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
     public static String SORT_BY = "popular";
     private CoordinatorLayout coordinatorLayout;
 
-
     public ListFragment() {
     }
 
@@ -44,12 +43,19 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
         SORT_BY = sortBy;
         return new ListFragment();
     }
-
+    /**
+     * This method allows us to display a message when a movie is deleted
+     *
+     * @param message to display
+     */
     public void displaySnackBar(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
                 .show();
     }
 
+    /**
+     * This method allows us to change display format for listing movies
+     */
     public void changeLayout() {
         if (layoutManager instanceof GridLayoutManager) {
             layoutManager = new LinearLayoutManager(getContext());
@@ -104,7 +110,6 @@ public class ListFragment extends Fragment implements MovieListContract.View, Mo
             movieListPresenter.removeMovieFromFavorites(movieId);
         }
     }
-
 
     @Override
     public void onMovieAddedToFavorites() {

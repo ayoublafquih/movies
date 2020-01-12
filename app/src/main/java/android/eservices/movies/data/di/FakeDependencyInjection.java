@@ -1,6 +1,5 @@
 package android.eservices.movies.data.di;
 
-
 import android.content.Context;
 import android.eservices.movies.data.api.MovieDisplayService;
 import android.eservices.movies.data.db.MovieDatabase;
@@ -20,6 +19,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+/**
+ * It is a class to handle DependencyInjection in our project
+ */
 
 public class FakeDependencyInjection {
 

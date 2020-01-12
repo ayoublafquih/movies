@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+/**
+ * It is the second activity that display a detail for a specific movie
+ */
+
 public class book_activity extends AppCompatActivity {
 
     private ImageView thumbnailImageView;

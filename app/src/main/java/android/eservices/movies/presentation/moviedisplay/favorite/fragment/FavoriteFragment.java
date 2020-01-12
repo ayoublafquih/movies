@@ -1,6 +1,5 @@
 package android.eservices.movies.presentation.moviedisplay.favorite.fragment;
 
-
 import android.eservices.movies.R;
 import android.eservices.movies.data.api.model.Movie;
 import android.eservices.movies.data.di.FakeDependencyInjection;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -25,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
-
 
 public class FavoriteFragment extends Fragment implements MovieFavoriteContract.View, MovieFavoriteActionInterface {
 
@@ -44,6 +41,9 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
         return new FavoriteFragment();
     }
 
+    /**
+     * This method allows us to change display format for listing movies
+     */
     public void changeLayout() {
         if (layoutManager instanceof GridLayoutManager) {
             layoutManager = new LinearLayoutManager(getContext());
@@ -53,13 +53,25 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    /**
+     * Allows us to remove movie from Database
+     *
+     * @param movieId
+     * @param isChecked
+     */
     @Override
     public void onRemoveFavorite(Long movieId, Boolean isChecked) {
-        if(!isChecked){
+        if (!isChecked) {
             movieFavoritePresenter.removeMovieFromFavorites(movieId);
             displaySnackBar("remove movie from favorite");
         }
     }
+
+    /**
+     * This method allows us to display a message when a movie is deleted
+     *
+     * @param message to display
+     */
     public void displaySnackBar(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG)
                 .show();
@@ -77,9 +89,7 @@ public class FavoriteFragment extends Fragment implements MovieFavoriteContract.
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         coordinatorLayout = rootView.findViewById(R.id.coordinator_layout);
         super.onActivityCreated(savedInstanceState);
-
         setupRecyclerView();
-
         movieFavoritePresenter = new MovieFavoritePresenter(FakeDependencyInjection.getMovieDisplayRepository(), new MovieEntityToMovieMapper());
         movieFavoritePresenter.attachView(this);
         movieFavoritePresenter.getFavorites();

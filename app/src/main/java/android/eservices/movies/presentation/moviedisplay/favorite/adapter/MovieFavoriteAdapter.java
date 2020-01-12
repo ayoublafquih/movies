@@ -11,18 +11,21 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * It is our adapter that manage displayed favorites movies
+ */
 
 public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieViewHolder> {
 
+    /**
+     * This class describes an movie view
+     */
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView thumbnailImageView;
@@ -62,7 +65,6 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
             Picasso.with(v.getContext())
                     .load(urlPoster)
                     .into(thumbnailImageView);
-
 
         }
 
@@ -105,7 +107,6 @@ public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdap
                 intent.putExtra("description",movieItemViewModelList.get(position).getOverview());
                 intent.putExtra("thumbnail",movieItemViewModelList.get(position).getBackdropPath(v.getContext()));
                 intent.putExtra("date",movieItemViewModelList.get(position).getReleaseDate(v.getContext()));
-
                 v.getContext().startActivity(intent);
             }
         });

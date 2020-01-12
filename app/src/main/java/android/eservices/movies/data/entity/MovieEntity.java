@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * It is a class that represent movie in local database
+ */
 @Entity
 public class MovieEntity {
     @NonNull

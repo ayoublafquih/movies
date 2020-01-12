@@ -1,8 +1,11 @@
 package android.eservices.movies.presentation.moviedisplay.list;
 
 import android.eservices.movies.data.api.model.Movie;
-
 import java.util.List;
+
+/**
+ * It is an interface that represent movie contract
+ */
 
 public class MovieListContract {
 

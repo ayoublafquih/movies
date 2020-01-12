@@ -19,7 +19,6 @@ public class MovieFavoritePresenter implements MovieFavoriteContract.Presenter {
     private CompositeDisposable compositeDisposable;
     private MovieEntityToMovieMapper movieEntityToMovieMapper;
 
-
     public MovieFavoritePresenter(MovieDisplayRepository movieDisplayRepository, MovieEntityToMovieMapper movieEntityToMovieMapper) {
         this.movieDisplayRepository = movieDisplayRepository;
         this.compositeDisposable = new CompositeDisposable();
@@ -37,7 +36,6 @@ public class MovieFavoritePresenter implements MovieFavoriteContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new ResourceSubscriber<List<MovieEntity>>() {
-
                     @Override
                     public void onNext(List<MovieEntity> movieEntityList) {
                         view.displayFavorites(movieEntityToMovieMapper.map(movieEntityList));
@@ -54,7 +52,6 @@ public class MovieFavoritePresenter implements MovieFavoriteContract.Presenter {
                         //Do Nothing
                     }
                 }));
-
     }
 
     @Override

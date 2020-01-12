@@ -6,11 +6,14 @@ import android.eservices.movies.presentation.moviedisplay.list.fragment.ListFrag
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+/**
+ * It is the main activity and entry point of our application
+ */
 
 public class MovieDisplayActivity extends AppCompatActivity {
 

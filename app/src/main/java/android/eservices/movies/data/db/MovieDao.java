@@ -1,18 +1,17 @@
 package android.eservices.movies.data.db;
 
 import android.eservices.movies.data.entity.MovieEntity;
-
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-
 import java.util.List;
-
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
-
+/**
+ * It is our Dao to request the database
+ */
 @Dao
 public interface MovieDao {
 

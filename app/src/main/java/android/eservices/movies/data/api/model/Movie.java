@@ -10,6 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * It is a class that represent response Movie from Web Service
+ */
+
 public class Movie {
 
     public static final String TAG = Movie.class.getName();

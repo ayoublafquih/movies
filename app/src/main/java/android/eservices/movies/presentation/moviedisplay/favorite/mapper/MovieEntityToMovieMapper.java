@@ -5,6 +5,9 @@ import android.eservices.movies.data.entity.MovieEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * It is a class to map Movie Entity that represent movie in database to a Movie class
+ */
 public class MovieEntityToMovieMapper {
 
     public Movie map(MovieEntity movieEntity) {

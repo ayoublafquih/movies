@@ -1,4 +1,5 @@
 package android.eservices.movies.presentation.moviedisplay.list;
+
 import android.eservices.movies.data.api.model.Movies;
 import android.eservices.movies.data.repository.moviedisplay.MovieDisplayRepository;
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -2,10 +2,12 @@ package android.eservices.movies.data.repository.moviedisplay.mapper;
 
 import android.eservices.movies.data.api.model.Movie;
 import android.eservices.movies.data.entity.MovieEntity;
-import android.text.TextUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * It is a class to map a film to an entity film
+ * @author ayoub
+ *
+ */
 
 public class MovieToMovieEntityMapper {
 
